@@ -7,7 +7,11 @@
     "start": "nodemon --exec babel-node server/index.js",
     "migration": "sequelize db:migrate",
     "migration:undo": "sequelize db:migrate:undo:all",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "migration:test-dev": "NODE_ENV=test_dev sequelize db:migrate",
+    "migration:test-dev:undo": "NODE_ENV=test_dev sequelize db:migrate:undo:all",
+    "test": "nyc mocha --require @babel/register ./test/index.test.js --exit",
+    "test:dev": "NODE_ENV=test_dev nyc mocha --require @babel/register ./test/index.test.js --exit",
+    "coverage": "nyc report --reporter=lcov --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -31,10 +35,17 @@
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
-    "nodemon": "^1.18.9"
+    "@babel/register": "^7.0.0",
+    "coveralls": "^3.0.2",
+    "mocha": "^5.2.0",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nodemon": "^1.18.9",
+    "nyc": "^13.1.0"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "pg": "^7.8.0",

@@ -17,6 +17,9 @@ module.exports = {
       femalePopulation: {
         type: Sequelize.INTEGER
       },
+      districts: {
+        type: Sequelize.TEXT
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

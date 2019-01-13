@@ -1,13 +1,14 @@
 import db from '../models';
-const { Resident, Location } = db;
+const { Location } = db;
 
 const createLocation = (request, response) => {
-  const { name, malePopulation, femalePopulation } = request.body;
+  const { name, malePopulation, femalePopulation, districts } = request.body;
 
   return Location.create({
     name,
     malePopulation,
     femalePopulation,
+    districts,
   })
     .then(location => {
       response.status(201).json({
@@ -27,7 +28,7 @@ const getLocations = (request, response) => {
     .then(location => {
 
       const locationSummary = location.map(loc => {
-        const { name, malePopulation, femalePopulation } = loc.dataValues;
+        const { name, malePopulation, femalePopulation, districts } = loc.dataValues;
         const totalPopulation = malePopulation + femalePopulation;
 
         return {
@@ -35,6 +36,7 @@ const getLocations = (request, response) => {
           malePopulation,
           femalePopulation,
           totalPopulation,
+          districts,
         };
       });
       
@@ -51,7 +53,7 @@ const getLocations = (request, response) => {
 
 const updateLocation = (request, response) => {
   const { body, params: { locationId } } = request;
-  const { name, malePopulation, femalePopulation } = body;
+  const { name, malePopulation, femalePopulation, districts } = body;
 
   return Location.findOne({
     where: { id: locationId }
@@ -67,6 +69,7 @@ const updateLocation = (request, response) => {
         name,
         malePopulation,
         femalePopulation,
+        districts,
       });
     
       return response.status(200)

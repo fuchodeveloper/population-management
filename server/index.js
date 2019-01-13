@@ -30,6 +30,11 @@ app.put('/api/v1/locations/update/:locationId', updateLocation);
 // Delete a specified location
 app.delete('/api/v1/locations/delete/:locationId', deleteLocation);
 
+// Catch all invalid routes
+app.all('*', (request, response) => response.status(404).send({
+  message: 'Oops! 404. Page not Found',
+}));
+
 app.listen(port);
 
 export default app;

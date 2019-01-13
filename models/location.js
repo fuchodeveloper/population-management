@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const Location = sequelize.define('Location', {
     name: DataTypes.STRING,
     malePopulation: DataTypes.INTEGER,
-    femalePopulation: DataTypes.INTEGER
+    femalePopulation: DataTypes.INTEGER,
+    districts: DataTypes.TEXT,
   }, {});
   Location.associate = function(models) {
     // associations can be defined here
